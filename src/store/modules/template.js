@@ -1,4 +1,5 @@
-import api from '../../axios-instance';
+import api from '../../api';
+import { processError } from '../utils';
 
 const state = {
 	items: [],
@@ -29,19 +30,51 @@ const mutations = {
 
 const actions = {
 	async getAll(context) {
+		context.commit('error/clear', null, {root: true});
 
+		await api.get('/SC_ENDPOINT_ROUTE')
+			.then((response) => {
+				context.commit('set', response.data.items);
+			})
+			.catch((error) => {
+				processError(context, error);
+			});
 	},
 
-	async add(context) {
+	async add(context, item) {
+		context.commit('error/clear', null, {root: true});
 
+		await api.post('/SC_ENDPOINT_ROUTE', item)
+			.then((response) => {
+				context.commit('add', response.data);
+			})
+			.catch((error) => {
+				processError(context, error);
+			});
 	},
 
 	async update(context, item) {
+		context.commit('error/clear', null, {root: true});
 
+		await api.post('/SC_ENDPOINT_ROUTE/' + item.ref, item)
+			.then((response) => {
+				context.commit('update', response.data);
+			})
+			.catch((error) => {
+				processError(context, error);
+			});
 	},
 
 	async delete(context, item) {
+		context.commit('error/clear', null, {root: true});
 
+		await api.delete('/SC_ENDPOINT_ROUTE/' + item.ref)
+			.then(() => {
+				context.commit('delete', item);
+			})
+			.catch((error) => {
+				processError(context, error);
+			});
 	}
 };
 
