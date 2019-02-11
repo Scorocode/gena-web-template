@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import error from './modules/error';
 import auth from './modules/auth';
 
-// SC_MODULES_IMPORT
+// SC_MODULES_IMPORTS
 
 Vue.use(Vuex);
 

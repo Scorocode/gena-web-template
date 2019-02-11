@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import HomeView from './views/HomeView.vue'
-import SigninView from "./views/SigninView";
+import SigninView from "./views/SigninView.vue";
 
-// SC_ROUTES_IMPORT
+// SC_ROUTER_IMPORTS
 
 Vue.use(Router)
 

@@ -2,12 +2,7 @@
     <div class="flex-fill p-3">
         <b-form @reset="onReset" @submit="onSubmit" v-if="show && this.item">
             <b-row :key="key" class="my-1" v-for="(value, key) in item">
-                <b-col sm="3">
-                    <label :for="'id' + key">{{ key }}:</label>
-                </b-col>
-                <b-col sm="9">
-                    <b-form-input :id="'id' + key" :type="getType(key)" v-model="item[key]"></b-form-input>
-                </b-col>
+                SC_ENDPOINT_FIELDS
             </b-row>
             <b-button type="submit" variant="primary">Submit</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
@@ -26,29 +21,18 @@
 			}
 		},
 		computed: {
-			...mapGetters('SC_STORE_MODULE', [
+			...mapGetters('SC_ENDPOINT_ROUTE', [
 				'getItemById'
 			])
 		},
 		methods: {
-			...mapActions('SC_STORE_MODULE', [
+			...mapActions('SC_ENDPOINT_ROUTE', [
 				'update',
 			]),
 
 			...mapMutations('error', {
 				clearError: 'clear'
 			}),
-
-			getType(key) {
-				switch (typeof this.item[key]) {
-					case 'string':
-						return 'text';
-					case 'number':
-						return 'number';
-					case 'boolean':
-						return 'checkbox';
-				}
-			},
 
 			onSubmit(evt) {
 				evt.preventDefault();
